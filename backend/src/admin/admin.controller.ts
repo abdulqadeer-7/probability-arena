@@ -17,6 +17,7 @@ import { AdminService } from './admin.service';
 import { Roles } from '../common/decorators/roles.decorator';
 import { RolesGuard } from '../common/guards/roles.guard';
 import { CurrentUser } from '../common/decorators/current-user.decorator';
+import { Public } from '../common/decorators/public.decorator';
 import { SearchQueryDto, StatusFilterDto, AuditLogFilterDto } from './dto/pagination-query.dto';
 import { UpdateGameConfigDto } from './dto/update-game-config.dto';
 import { UpdateTicketDto } from './dto/update-ticket.dto';
@@ -157,6 +158,8 @@ export class AdminController {
   }
 
   @Get('health')
+  @Public()
+  @Roles()
   @HttpCode(HttpStatus.OK)
   async getHealth() {
     return this.adminService.getHealth();

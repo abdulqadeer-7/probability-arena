@@ -15,6 +15,10 @@ export class RedisService extends Redis implements OnModuleDestroy {
       },
       maxRetriesPerRequest: 3,
     });
+
+    this.on('error', () => {
+      // Redis is optional in this environment; do not crash on connection errors.
+    });
   }
 
   async onModuleDestroy() {
