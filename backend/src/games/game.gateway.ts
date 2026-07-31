@@ -219,7 +219,8 @@ export class GameGateway implements OnGatewayConnection, OnGatewayDisconnect {
         }),
       );
     } catch (error) {
-      throw new WsException(`Failed to place bet: ${error.message}`);
+      const message = error instanceof Error ? error.message : 'Unknown error';
+      throw new WsException(`Failed to place bet: ${message}`);
     }
   }
 
