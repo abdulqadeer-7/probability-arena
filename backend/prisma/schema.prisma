@@ -236,7 +236,7 @@ model GameRound {
 
   game   Game        @relation(fields: [gameId], references: [id])
   user   User        @relation(fields: [userId], references: [id])
-  result GameResult?
+  gameResult GameResult?
 
   @@index([gameId])
   @@index([userId])
@@ -255,8 +255,8 @@ model GameResult {
   resultData  Json     @default("{}") @map("result_data")
   createdAt   DateTime @default(now()) @map("created_at")
 
-  round Game @relation(fields: [roundId], references: [id])
-  game  Game @relation(fields: [gameId], references: [id])
+  round GameRound @relation(fields: [roundId], references: [id])
+  game  Game      @relation(fields: [gameId], references: [id])
 
   @@index([gameId])
   @@index([createdAt])
