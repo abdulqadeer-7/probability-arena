@@ -3,7 +3,7 @@ FROM node:20-alpine AS build
 WORKDIR /app
 
 COPY backend/package.json backend/package-lock.json ./
-RUN npm ci
+RUN npm ci --include=dev
 
 COPY backend/tsconfig.json backend/nest-cli.json ./
 COPY backend/prisma ./prisma
