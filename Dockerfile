@@ -28,4 +28,4 @@ COPY --from=build /app/prisma ./prisma
 EXPOSE 4000
 
 ENTRYPOINT ["tini", "--"]
-CMD ["sh", "-c", "npx prisma db push --accept-data-loss && node dist/main"]
+CMD ["node", "dist/main"]

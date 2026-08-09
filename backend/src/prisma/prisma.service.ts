@@ -10,7 +10,17 @@ export class PrismaService extends PrismaClient implements OnModuleInit, OnModul
   }
 
   async onModuleInit() {
-    await this.$connect();
+    try {
+      await Promise.race([
+        this.$connect(),
+        new Promise((_, reject) =>
+          setTimeout(() => reject(new Error('Database connection timeout')), 10000),
+        ),
+      ]);
+    } catch (error) {
+      const message = error instanceof Error ? error.message : 'Unknown error';
+      console.warn(`Prisma initial connection failed: ${message}`);
+    }
   }
 
   async onModuleDestroy() {
